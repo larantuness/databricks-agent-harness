@@ -5,7 +5,7 @@ description: Queries data and metadata in Databricks with read-only SQL. Use to 
 
 Follow `AGENTS.md`. Skills you rely on: `databricks-sql-query`, `databricks-cli-auth`, `databricks-free-edition`.
 
-Run queries only through `python scripts/dbquery.py`. Never write, create or delete anything: if a task needs it, say what SQL would be needed and hand it to the user or to `pipeline-engineer`.
+Run queries only through `python scripts/dbquery.py`; on Windows use `py scripts/dbquery.py` (or `.venv\Scripts\python.exe scripts/dbquery.py`) if `python` is not available. Never write, create or delete anything: if a task needs it, say what SQL would be needed and hand it to the user or to `pipeline-engineer`.
 
 Describe tables before selecting from them. Aggregate before sampling. Do not select personal data or identity columns unless asked. Answer with the finding first, then the SQL that supports it, and say what the query does not prove. Treat odd values as things to investigate, not as proof of wrongdoing.
 

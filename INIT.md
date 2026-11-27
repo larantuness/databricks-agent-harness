@@ -51,7 +51,7 @@ O fork de um repositório público também é público. Nunca grave credenciais,
 
 Siga a skill `environment-setup`, secções 1 e 2.
 
-**Verificação:** `python3 scripts/check_environment.py` (Windows: `py scripts/check_environment.py`) mostra tudo `ok`.
+**Verificação:** `python3 scripts/check_environment.py` (Windows: `py scripts/check_environment.py`) mostra `ok` para todas as ferramentas obrigatórias. O Spec Kit aparece como `optional/skipped`; não é executado nem necessário para inicializar o projeto.
 
 ## Passo 2: ambiente Python e dependências
 
@@ -147,5 +147,5 @@ Mostre uma tabela com cada passo (`feito`, `já existia`, `bloqueado`, `pendente
 
 ## Fora da inicialização
 
-- **Spec Kit:** a ferramenta é instalada, mas **não execute `specify init`**. Ele escreve nas pastas dos agentes e pode substituir ficheiros; isso tem de ser tratado numa alteração revista.
+- **Spec Kit:** é opcional e não é necessário para inicializar ou concluir a US00. Não execute `specify init`: escreve nas pastas dos agentes e pode substituir ficheiros; isso tem de ser tratado numa alteração revista.
 - GitHub Pages (história `US15`), pipelines, job, dashboard, app e deploy: são histórias do backlog.

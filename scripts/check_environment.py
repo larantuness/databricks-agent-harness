@@ -16,7 +16,6 @@ TOOLS = [
     ("Databricks CLI", ["databricks", "-v"], (1, 0, 0)),
     ("GitHub CLI", ["gh", "--version"], None),
     ("uv", ["uv", "--version"], None),
-    ("Spec Kit", ["specify", "version"], None),
 ]
 
 
@@ -39,11 +38,13 @@ def check(command, minimum):
             errors="replace",
             timeout=60,
         )
-    except (OSError, subprocess.TimeoutExpired):
+        returncode = done.returncode
+        version = parse_version(done.stdout)
+    except (OSError, subprocess.SubprocessError):
+        # Execution and output errors can contain private command or workspace data.
         return "error", ""
-    if done.returncode != 0:
+    if returncode != 0:
         return "error", ""
-    version = parse_version(done.stdout)
     shown = ".".join(str(n) for n in version) if version else "?"
     if minimum and (version is None or version < minimum):
         return "too old", shown
@@ -62,18 +63,22 @@ def uv_has_python():
             stderr=subprocess.PIPE,
             timeout=60,
         )
-    except (OSError, subprocess.TimeoutExpired):
+    except (OSError, subprocess.SubprocessError):
+        # Do not expose command diagnostics from the Python version probe.
         return False
     return done.returncode == 0
 
 
 def main():
     results = [(label,) + check(command, minimum) for label, command, minimum in TOOLS]
+    results.append(("Spec Kit", "optional/skipped", ""))
     python_ok = sys.version_info >= (3, 11) or uv_has_python()
     results.append(("Python 3.11+", "ok" if python_ok else "missing", ""))
     for label, status, version in results:
         print("{:<16} {:<8} {}".format(label, status, version))
-    problems = [label for label, status, _ in results if status != "ok"]
+    problems = [
+        label for label, status, _ in results if status not in ("ok", "optional/skipped")
+    ]
     if problems:
         print("\nNeeds attention: " + ", ".join(problems))
         print("Follow skills/core/environment-setup/SKILL.md")
