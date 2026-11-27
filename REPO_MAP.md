@@ -16,6 +16,9 @@ Start here. Everything an agent can use is listed below. Keep this file in sync 
 | `pipeline-engineer` | Build and test Lakeflow / Spark Declarative Pipelines and transformation code |
 | `notebook-engineer` | Develop notebooks and Python modules locally, keep them testable |
 | `docs-writer` | Write and refresh living documentation from the code |
+| `app-engineer` | Build the Databricks App for data consumers |
+| `dashboard-engineer` | Build the operational dashboard: quality, volume, run time, DBUs |
+| `data-analyst` | Query data and metadata with read-only SQL |
 | `reviewer` | Review a branch or pull request against the rules and tests |
 | `harness-improver` | Read the error log, find repeated problems, propose edits to instructions, skills and agents |
 
@@ -31,6 +34,9 @@ Grouped by tool. Delete the groups you do not use.
 | core | `write-contract` | Dry-run-first rule for anything that writes |
 | databricks | `databricks-cli-auth` | Install the CLI, OAuth login, profiles |
 | databricks | `databricks-free-edition` | What works and what does not on Free Edition |
+| databricks | `databricks-sql-query` | Read-only SQL on the warehouse, system tables |
+| databricks | `project-app` | Project rules for the consumer app |
+| databricks | `project-dashboard` | Project rules for the operational dashboard |
 | databricks | `databricks-pipelines` | Declarative pipelines and medallion layers |
 | databricks | `databricks-bundles-dev` | Asset Bundles with a dev target only |
 | github | `github-issues-flow` | Issues as stories, labels, branches |
@@ -58,4 +64,4 @@ Grouped by tool. Delete the groups you do not use.
 
 ## Scripts
 
-- `scripts/check_environment.py` (read-only tool check), `scripts/sync_agent_folders.py`, `scripts/check_repo_map.py`, `scripts/quick_validate.py`.
+- `scripts/check_environment.py` (read-only tool check), `scripts/dbquery.py` (read-only SQL), `scripts/sync_agent_folders.py`, `scripts/check_repo_map.py`, `scripts/quick_validate.py`.

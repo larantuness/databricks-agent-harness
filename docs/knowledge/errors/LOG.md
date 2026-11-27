@@ -56,3 +56,19 @@ Entry template:
 - Prevention: `skills/databricks/databricks-cli-auth` explains how to find the host and lists the error.
 - Status: fixed-in-skill
 - Seen: 1
+
+## 2026-11-27 15:00 · databricks-sql-query · fixed
+- Symptom: the user had to run SQL checks by hand and paste the results; the harness had no way for the agent to query Databricks.
+- Cause: no skill or agent covered querying.
+- Fix: added skill `databricks-sql-query`, agent `data-analyst` and `scripts/dbquery.py` (read-only).
+- Prevention: `AGENTS.md` now tells agents to query instead of guessing.
+- Status: fixed-in-skill
+- Seen: 1
+
+## 2026-11-27 15:10 · tests · fixed
+- Symptom: plain `pytest` failed with `ModuleNotFoundError: No module named 'scripts'` (and the same for `src`), while `python -m pytest` passed.
+- Cause: the repository root was not on the import path. CI runs plain `pytest`.
+- Fix: `pythonpath = ["."]` in `pyproject.toml`.
+- Prevention: run tests with the same command as CI.
+- Status: fixed-in-skill
+- Seen: 1

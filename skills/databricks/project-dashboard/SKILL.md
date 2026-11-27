@@ -1,0 +1,35 @@
+---
+name: project-dashboard
+description: Use when designing, building or deploying the operational dashboard of this project, covering data quality expectations, row volume, ingestion, run time and DBU use from system tables.
+---
+
+# Operational dashboard: project rules
+
+Status: project rules. The dashboard has not been built yet. For how to build AI/BI dashboards, use the official skill `databricks-aibi-dashboards` (see `databricks aitools list`).
+
+## Audience
+
+Data engineers and admins. Business KPIs belong to the app (skill `project-app`).
+
+## Pages and sources
+
+| Page | Source |
+|---|---|
+| Quality | `pipeline_events`: `details:flow_progress.data_quality.expectations` |
+| Volume | `pipeline_events`: `details:flow_progress.metrics` and dropped records |
+| Ingestion and freshness | the project's ingestion log table (the download runs outside the pipeline) |
+| Run time | `pipeline_events` (`update_progress`) and `system.lakeflow.job_task_run_timeline` |
+| Consumption | `system.billing.usage` and `system.billing.list_prices` |
+
+Test access first (skill `databricks-sql-query`) and read `docs/knowledge/learnings/free-edition-system-tables.md`.
+
+## Rules
+
+- The dashboard reads `ops_*` views, not system tables directly. `pipeline_events` is Beta and may change.
+- Filter to this project's pipelines and jobs; the workspace may have other usage.
+- DBUs: filter `usage_unit = 'DBU'` and sum all record types, so corrections are included (`from-docs`).
+- Cost is an estimate at list price, not a bill. Label it. Match prices by SKU, cloud, unit and validity period (`unverified`).
+- Shared warehouse use cannot be split by dashboard or app without a stated rule.
+- Show "data up to" on every page. Billing data can be many hours late (`from-docs`).
+- Missing data is shown as unavailable, never as zero.
+- Do not show identity columns unless a story requires it.

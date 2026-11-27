@@ -20,6 +20,10 @@ If the user just cloned or forked this repository, asks for setup, or a required
 6. Small steps. One issue, one branch, one pull request. Commit messages say what changed and why.
 7. Say what you did not verify. Mark claims as `verified` (you ran it), `from-docs` (read in docs) or `unverified` (a guess).
 
+## Querying data
+
+You can and should query Databricks to check facts instead of guessing: use skill `databricks-sql-query` (read-only, through `python scripts/dbquery.py`) or the agent `data-analyst`.
+
 ## Continuous improvement (mandatory)
 
 You are expected to make this harness better every time you use it. The full protocol is in skill `self-improvement`. The short version:
