@@ -1,0 +1,43 @@
+---
+name: databricks-official-skills
+description: Use before installing, updating or following the official Databricks AI tools skills or MCP servers (databricks aitools). Explains the safe way to install them and which project rules win over them.
+---
+
+# Official Databricks skills and MCP
+
+Status: installing three skills at project scope was `verified` on macOS, Claude Code, CLI 1.28.0 (2026-11-27). Other agents and the MCP commands are `unverified`.
+
+Source: https://github.com/databricks/databricks-agent-skills. The Databricks License allows use with Databricks services and sets conditions for redistribution, so **do not copy these files into this repository or commit them**. Each person installs them.
+
+## Project rules win
+
+When an official skill disagrees with `AGENTS.md` or a project skill, the project wins:
+
+| Official guidance | In this project |
+|---|---|
+| Run SQL with the `aitools tools query` command | Only `python scripts/dbquery.py` (read-only) |
+| Explore tables with `discover-schema` (it returns sample rows) | `DESCRIBE` and aggregates through the wrapper; no personal data in the context |
+| If installing the CLI is blocked, offer the REST API with a token | Stop and report. Never bypass a block, never handle tokens |
+| Let the user pick a profile every time | Use `free` if it exists and the user confirmed it during initialization; if there are several workspaces or any doubt, ask |
+| Add `--skills-invoked` to commands | Do not add it unless the user asks. It sends skill names to Databricks and, for some logins, the identity provider |
+| Examples with a production target | Dev only |
+| Link to sign up for a trial | Students use Free Edition |
+
+## Install (a write: follow `write-contract`)
+
+Always state the scope and the agent. Without a terminal, which is how an agent runs it, the default is global and every detected agent.
+
+```
+databricks aitools list
+databricks aitools install --scope project --agents claude-code --skills-only --skills databricks-core,databricks-pipelines,databricks-dabs
+```
+
+- Files go to `.databricks/aitools/skills/` (ignored by Git) with links in `.claude/skills/`. The links are in `.gitignore`.
+- Add other skills only when a story needs them (`databricks-jobs`, `databricks-aibi-dashboards`, `databricks-apps-python`). Add each new link to `.gitignore`.
+- A project skill must not use the name of an official one (this is why ours are `project-*`).
+- `python scripts/sync_agent_folders.py` leaves these files alone.
+- Start a new agent session so the skills are loaded.
+
+## Managed MCP servers
+
+CLI 1.28.0 has `databricks aitools mcp` (`add`, `list`, `remove`, `login`). A server added this way runs with a CLI profile, so no token is written into a configuration file. Check `--help`, give `--names`, `--agents` and `--profile` explicitly, and show the plan first. MCP tools can write: they are not covered by the read-only wrapper or the shell hook. Not tested on Free Edition.

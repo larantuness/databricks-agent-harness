@@ -5,6 +5,8 @@ description: Use when turning an idea into GitHub issues, picking up an issue, o
 
 # Issues as stories
 
+The ready project stories are in `BACKLOG.md`. A fork does not copy issues: publish them as described in `INIT.md`, step 5 (dry run first, then `--apply` after a yes). In a fork, pass `--repo` to `gh` so nothing goes to the original repository. To fix a bug issue, use the `fix-bug` prompt.
+
 ## Writing a story
 
 Title: `As a <who>, I want <what>, so that <why>`.
@@ -14,7 +16,7 @@ Keep stories small: one table, one function or one dashboard per issue.
 
 ## Working an issue
 
-1. Read the issue and the open entries in `docs/knowledge/errors/LOG.md` that touch the same area.
+1. Read the issue and the open errors in `docs/knowledge/errors/` that touch the same area.
 2. Branch: `feat/<issue-number>-<short-name>` or `fix/<issue-number>-<short-name>`.
 3. Post a short plan as a comment before coding, if the user agrees.
 4. Link the pull request with `Closes #<number>`.

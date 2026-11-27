@@ -22,7 +22,7 @@ python scripts/dbquery.py "SHOW TABLES IN system.lakeflow"
 python scripts/dbquery.py --file query.sql --output csv
 ```
 
-Do not call `databricks experimental aitools tools query` or the SQL statements API directly: they run any statement your user is allowed to run. If the wrapper refuses something, do not reword it to get through. Anything that writes goes through skill `write-contract` and is reviewed by the user.
+Do not call the CLI `aitools tools` commands (`query`, `statement submit`, `discover-schema`) or the SQL statements API directly, even if an official skill tells you to: the first run any statement your user is allowed to run, and `discover-schema` returns sample rows. In Claude Code a hook blocks the usual forms. If the wrapper refuses something, do not reword it to get through. Anything that writes goes through skill `write-contract` and is reviewed by the user.
 
 The wrapper is a guardrail against mistakes, not a security boundary. A view or a user-defined function can still have effects the wrapper cannot see.
 
@@ -44,24 +44,10 @@ Use full names (`catalog.schema.table`).
 
 ## System tables
 
-- Access differs between workspaces. Check `docs/knowledge/learnings/free-edition-system-tables.md`, then test.
+- Access differs between workspaces and some documented tables may be missing. Test what you can query and record it in `docs/knowledge/learnings/`.
 - `system.billing.usage`: sum `usage_quantity` over all record types (corrections arrive as extra rows); filter `usage_unit = 'DBU'` for DBUs. Data can be many hours late (`from-docs`).
 - `system.lakeflow.pipelines` keeps one row per change: take the latest by `workspace_id, pipeline_id` (`from-docs`).
 - `system.lakeflow_pipeline_events_preview.pipeline_events` is Beta. `details` is semi-structured: `details:update_progress.state::string`.
-
-Pipeline run history from events (`verified`: the query returned runs; duration is first to last event):
-
-```sql
-SELECT pipeline_id, update_id,
-  min(event_time) AS started_at, max(event_time) AS ended_at,
-  timestampdiff(SECOND, min(event_time), max(event_time)) AS duration_seconds,
-  max_by(details:update_progress.state::string, event_time) AS last_state
-FROM system.lakeflow_pipeline_events_preview.pipeline_events
-WHERE event_type = 'update_progress'
-GROUP BY pipeline_id, update_id
-ORDER BY started_at DESC
-LIMIT 20
-```
 
 ## Typical errors
 

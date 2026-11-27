@@ -22,7 +22,7 @@ Data engineers and admins. Business KPIs belong to the app (skill `project-app`)
 | Run time | `pipeline_events` (`update_progress`) and `system.lakeflow.job_task_run_timeline` |
 | Consumption | `system.billing.usage` and `system.billing.list_prices` |
 
-Test access first (skill `databricks-sql-query`) and read `docs/knowledge/learnings/free-edition-system-tables.md`.
+Test access first (skill `databricks-sql-query`), check your notes in `docs/knowledge/learnings/`, and record what you can and cannot query.
 
 ## Rules
 

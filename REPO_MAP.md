@@ -4,6 +4,8 @@ Start here. Everything an agent can use is listed below. Keep this file in sync 
 
 ## Instruction files
 
+- `INIT.md`: project initialization steps for the agent (tools, requirements, GitHub, backlog, Databricks).
+- `BACKLOG.md`: all project stories, published as issues during initialization.
 - `AGENTS.md`: rules for every agent (single source).
 - `CLAUDE.md`: imports `AGENTS.md`, adds Claude Code notes.
 - `.github/copilot-instructions.md`: points Copilot to `AGENTS.md`.
@@ -37,16 +39,22 @@ Grouped by tool. Delete the groups you do not use.
 | databricks | `databricks-sql-query` | Read-only SQL on the warehouse, system tables |
 | databricks | `project-app` | Project rules for the consumer app |
 | databricks | `project-dashboard` | Project rules for the operational dashboard |
-| databricks | `databricks-pipelines` | Declarative pipelines and medallion layers |
+| databricks | `project-client-docs` | Project rules for the public documentation site |
+| databricks | `databricks-official-skills` | Safe install of official skills and MCP; which rules win |
+| databricks | `project-pipelines` | Declarative pipelines and medallion layers |
 | databricks | `databricks-bundles-dev` | Asset Bundles with a dev target only |
 | github | `github-issues-flow` | Issues as stories, labels, branches |
+| github | `github-board-flow` | Agile columns, who moves each card, approval gates |
 | github | `github-pr-flow` | Branch, commit, pull request, CI |
 
 ## Prompts (`prompts/`)
 
 | Prompt | Use it for |
 |---|---|
-| `setup` | Check this machine and install the tools the labs need |
+| `setup` | Initialize the project, following INIT.md |
+| `fix-bug` | Fix a bug issue, starting from a failing test |
+| `doctor` | Read-only health check of tools and logins |
+| `check-harness` | Check that instructions are still true and consistent |
 | `retro` | End-of-task review: log errors, update skills |
 | `log-error` | Record one error in the log right now |
 | `new-skill` | Create a new skill from a repeated task |
@@ -55,7 +63,7 @@ Grouped by tool. Delete the groups you do not use.
 
 ## Knowledge (`docs/knowledge/`)
 
-- `docs/knowledge/errors/LOG.md`, `docs/knowledge/decisions/LOG.md`, `docs/knowledge/learnings/`.
+- `docs/knowledge/errors/` (one file per problem; `docs/knowledge/errors/LOG.md` is the history), `docs/knowledge/decisions/LOG.md`, `docs/knowledge/learnings/`.
 
 ## Docs and labs
 
@@ -64,4 +72,4 @@ Grouped by tool. Delete the groups you do not use.
 
 ## Scripts
 
-- `scripts/check_environment.py` (read-only tool check), `scripts/dbquery.py` (read-only SQL), `scripts/sync_agent_folders.py`, `scripts/check_repo_map.py`, `scripts/quick_validate.py`.
+- `scripts/check_environment.py` (read-only tool check), `scripts/dbquery.py` (read-only SQL), `scripts/publish_backlog.py` (backlog to issues), `scripts/board.py` (agile board), `scripts/sync_agent_folders.py`, `scripts/check_repo_map.py`, `scripts/quick_validate.py`.

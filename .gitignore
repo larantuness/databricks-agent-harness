@@ -16,3 +16,15 @@ apresentacao/
 slides/
 *.pptx
 .claude/settings.local.json
+
+# Generated documentation site
+site/
+.cache/
+
+# Official Databricks skills: installed by each person, never committed (see skill databricks-official-skills)
+.claude/skills/databricks-core
+.claude/skills/databricks-pipelines
+.claude/skills/databricks-dabs
+.claude/skills/databricks-jobs
+.claude/skills/databricks-aibi-dashboards
+.claude/skills/databricks-apps-python

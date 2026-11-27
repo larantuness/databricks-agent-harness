@@ -6,11 +6,17 @@ description: Use when committing, pushing, opening or updating a pull request, o
 # Branch, commit, pull request
 
 1. Never commit to `main`. Work on a branch.
-2. Before committing run the local checks: `ruff check .` and `pytest` (see `labs/` for setup).
-3. Commit small and often. Message: imperative sentence saying what and why.
-4. Push the branch and open a pull request. Description: what changed, how it was tested, link to the issue.
-5. Wait for CI. If CI fails, read the log, fix the cause, push again. Do not disable a check to get green.
-6. A human reviews and merges. You do not merge your own pull request.
+2. Before committing run the same checks as CI (`.github/workflows/ci.yml`), with the same commands:
+   - `ruff check .`
+   - `pytest` (not `python -m pytest`: it can hide import errors)
+   - `python scripts/sync_agent_folders.py --check`
+   - `python scripts/check_repo_map.py`
+   - `python scripts/quick_validate.py skills/<group>/<name>` for each changed skill
+3. Read `git diff` and `git status` before committing: no debug output, unrelated files, secrets or personal data.
+4. Commit small and often. Message: imperative sentence saying what and why.
+5. Push the branch and open a pull request in the user's fork (`--repo`). Fill every section of `.github/pull_request_template.md`, briefly. State honestly how AI was used.
+6. Wait for CI. If CI fails, read the log, fix the cause, push again. Do not disable a check to get green.
+7. A human reviews and merges. You do not merge your own pull request.
 
 Typical lint failures: unused import, unsorted imports, missing newline at end of file, line too long. `ruff check --fix` solves most of them; review the diff afterwards.
 

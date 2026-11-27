@@ -82,7 +82,7 @@ uv pip install -r requirements-dev.txt pyyaml
 
 If `specify` is not found, run `uv tool update-shell` (`unverified`) and open a new terminal.
 
-**Do not run `specify init` during setup.** It writes into agent folders and may replace files. It belongs to a reviewed change on its own branch, and `scripts/sync_agent_folders.py` currently deletes files it did not generate in `.claude/` and `.github/`.
+**Do not run `specify init` during setup.** It writes into agent folders and may replace files. It belongs to a reviewed change on its own branch. (`scripts/sync_agent_folders.py` only removes files it generated; Spec Kit with this script is `unverified`.)
 
 ## 3. Verify
 

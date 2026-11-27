@@ -15,6 +15,16 @@ BLOCKED = [
     (r"databricks\s+bundle\s+destroy", "bundle destroy needs a human to run it"),
     (r"git\s+push\s+.*--force", "force push is not allowed"),
     (r"git\s+push\s+\S+\s+(HEAD:)?main\b", "never push directly to main; open a pull request"),
+    (
+        # Only a command that starts a shell statement, not a mention inside quotes.
+        r"(?:^|[;&|\n]\s*)databricks\s[^;&|\n]*?aitools\s+tools\s+"
+        r"(query|statement\s+submit|discover-schema)\b(?![^;&|\n]*--help)",
+        "run SQL only through scripts/dbquery.py (read-only); see skill databricks-sql-query",
+    ),
+    (
+        r"(?:^|[;&|\n]\s*)(databricks\s+api\s+post|curl)\s[^;&|\n]*/sql/statements",
+        "run SQL only through scripts/dbquery.py (read-only)",
+    ),
 ]
 
 try:

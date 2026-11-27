@@ -1,10 +1,10 @@
 ---
-description: Check this machine and install the tools the labs need.
+description: Initialize the project in this fork, following INIT.md.
 ---
 
-Set up my environment. Use the skill `environment-setup`.
+Initialize the project by following `INIT.md` from the first step.
 
-1. Check the machine without changing anything and show what is missing.
-2. Show the install plan for my operating system and wait for my yes.
-3. Install one tool at a time and verify each one. If something is blocked, stop and tell me; do not work around it.
-4. Tell me which logins I must run myself, then help me check my fork settings.
+1. Check every step without changing anything and show one plan: what is already done and what you will install or create, and where. Wait for my yes.
+2. Run the steps in order and verify each one. Skip what already passes.
+3. Tell me which logins and browser actions I must do myself. If something is blocked, stop and tell me; do not work around it.
+4. End with the report described in `INIT.md`.

@@ -4,18 +4,25 @@ A starter kit for doing data engineering on Databricks with an AI agent in VS Co
 
 Individual and hands-on: your VS Code, your Databricks Free Edition, your GitHub repository.
 
-## Quick start
+## Comece aqui
 
-1. Fork this repository to your GitHub account, then clone your fork and open it in VS Code.
-2. Ask your agent: "Set up my environment following the `environment-setup` skill" (or run `/setup`). It checks your machine, shows what it will install and waits for your yes.
-3. Delete the skill folders you do not need under `skills/` (`core` stays).
-4. Follow `labs/00-setup.md`, then the labs in order.
+1. Faça o fork deste repositório, clone o seu fork e abra a pasta no VS Code.
+2. No chat do seu agente, escreva:
+   > Inicialize o projeto seguindo o INIT.md. Antes de mudar qualquer coisa, mostre o plano.
+
+   (No Claude Code ou no Copilot, `/setup` faz o mesmo.)
+3. O agente guia os logins e permissões (que são feitos por você), instala o que falta, cria as issues e o quadro e prepara o Databricks, com o seu "sim".
+4. Siga os labs.
+
+Todos os pedidos que pode fazer ao agente, antes e depois, estão no início do `INIT.md`.
 
 ## What is inside
 
 - `AGENTS.md`: the rules every agent follows, including the improvement protocol.
 - `skills/<tool>/`: procedures by tool (`core`, `databricks`, `github`).
-- `agents/`: roles. `prompts/`: reusable commands (`/retro`, `/log-error`, `/new-skill`, `/memory-review`, `/start-story`, `/setup`).
+- `agents/`: roles. `prompts/`: reusable commands (`/retro`, `/log-error`, `/new-skill`, `/memory-review`, `/start-story`, `/setup`, `/fix-bug`).
+- `INIT.md`: project initialization, run by your agent.
+- `BACKLOG.md`: all the project issues.
 - `docs/knowledge/`: error log, decision log, learnings.
 - `.claude/` and `.github/`: generated copies for each tool. Edit the sources, then run `python scripts/sync_agent_folders.py`.
 - `docs/`: architecture, options without paid Claude, shared team memory.

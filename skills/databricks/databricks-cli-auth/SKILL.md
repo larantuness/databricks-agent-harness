@@ -42,6 +42,7 @@ A browser opens. Sign in with the same method you use for the workspace. The pro
 
 - Token expired or "invalid access token": run `databricks auth login` again for the same profile. OAuth tokens are short lived.
 - `no such host` or `failed to get OAuth endpoints`: the host is incomplete or mistyped, for example `dbc-xxxxxxxx-xxxx` without the domain. See "Find your workspace host".
+- `unknown flag: --profile free` or `unknown command "aitools install"` for something that exists: in zsh (macOS default) an unquoted variable with several words is passed as one argument. Do not store flags or subcommands in a variable: write them literally, or set `DATABRICKS_CONFIG_PROFILE`.
 - Wrong workspace: check `--host` and the profile with `databricks auth profiles`.
 - Command not found after install: restart the terminal so PATH updates.
 - Account-level commands fail on Free Edition: expected, Free Edition has no account console.
