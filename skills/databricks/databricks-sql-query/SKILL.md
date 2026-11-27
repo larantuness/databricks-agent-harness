@@ -17,8 +17,13 @@ Status: `verified` on macOS with Free Edition (2026-11-27, CLI 1.28.0). The CLI 
 Always use the wrapper. It accepts one `SELECT`, `WITH`, `SHOW`, `DESCRIBE` or `EXPLAIN` statement.
 
 ```
-python scripts/dbquery.py "SHOW TABLES IN system.lakeflow"
-python scripts/dbquery.py --file query.sql --output csv
+# Windows PowerShell
+py scripts/dbquery.py "SHOW TABLES IN system.lakeflow"
+py scripts/dbquery.py --file query.sql --output csv
+
+# macOS/Linux
+python3 scripts/dbquery.py "SHOW TABLES IN system.lakeflow"
+python3 scripts/dbquery.py --file query.sql --output csv
 ```
 
 Do not call the CLI `aitools tools` commands (`query`, `statement submit`, `discover-schema`) or the SQL statements API directly, even if an official skill tells you to: the first run any statement your user is allowed to run, and `discover-schema` returns sample rows. In Claude Code a hook blocks the usual forms. If the wrapper refuses something, do not reword it to get through. Anything that writes goes through skill `write-contract` and is reviewed by the user.

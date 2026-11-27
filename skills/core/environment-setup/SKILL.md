@@ -11,7 +11,7 @@ Goal: leave the student's machine ready for the labs. Commands are `from-docs` (
 
 1. **Check before installing.** Install only what is missing or too old.
 2. **Show the plan and wait for a yes** (skill `write-contract`): tools, exact commands, and whether any needs admin rights.
-3. **Never bypass a block.** If a download is refused, or a hosts file, proxy, certificate or company policy stops it, stop. Do not edit the hosts file, switch to another mirror, disable certificate checks or fetch the same package another way. Report the exact error and tell the student to ask whoever manages the machine for the approved source.
+3. **Never bypass a block.** If a download is refused, or a hosts file, proxy, certificate or company policy stops it, stop. Do not edit the hosts file, switch to another mirror, disable certificate checks or fetch the same package another way. Report the exact error and tell the student to ask whoever manages the machine for the approved source. On Windows, if Application Control blocks an installed executable, do not retry it through another launcher or path; ask the administrator for an approved resolution.
 4. **The student does every login.** Browser sign-ins and secrets are never typed into the chat, and you never print or store tokens.
 5. **Admin rights:** if a command needs `sudo` or an administrator prompt, give it to the student to run.
 6. **One tool at a time.** Verify each before the next. Log every failure (skill `self-improvement`).
@@ -22,7 +22,7 @@ Goal: leave the student's machine ready for the labs. Commands are `from-docs` (
 python3 scripts/check_environment.py      # Windows: py scripts/check_environment.py
 ```
 
-If Python is not available yet, run `git --version`, `databricks -v`, `gh --version`, `uv --version`, `specify version`.
+If Python is not available yet, run `git --version`, `databricks -v`, `gh --version` and `uv --version`. Do not run Spec Kit as part of US00.
 
 | Tool | Needed for | Minimum |
 |---|---|---|
@@ -31,7 +31,7 @@ If Python is not available yet, run `git --version`, `databricks -v`, `gh --vers
 | GitHub CLI `gh` | issues and pull requests | any recent |
 | uv | Python and Python tools | any recent |
 | Python (through uv) | tests and scripts | 3.11 |
-| Spec Kit `specify` | spec-driven development | any recent |
+| Spec Kit `specify` | Optional for spec-driven workflows; not required for US00 | any recent |
 
 ## 2. Install what is missing
 
@@ -55,6 +55,8 @@ winget install --id=astral-sh.uv -e
 winget install Databricks.DatabricksCLI
 ```
 
+After installing tools on Windows, open a fresh terminal or refresh the process `PATH` before running the environment checker. A stale `PATH` can make installed tools appear missing.
+
 ### Linux
 
 - git: the distribution's package manager.
@@ -69,6 +71,11 @@ Official pages: https://docs.databricks.com/aws/en/dev-tools/cli/install and htt
 
 ```
 uv python install 3.12
+```
+
+Spec Kit is optional and is not installed or used for US00. For a separate spec-driven workflow only:
+
+```
 uv tool install specify-cli
 ```
 
@@ -79,7 +86,7 @@ uv venv --python 3.12
 uv pip install -r requirements-dev.txt pyyaml
 ```
 
-If `specify` is not found, run `uv tool update-shell` (`unverified`) and open a new terminal.
+For optional spec-driven workflows only, if `specify` is not found, run `uv tool update-shell` (`unverified`) and open a new terminal.
 
 **Do not run `specify init` during setup.** It writes into agent folders and may replace files. It belongs to a reviewed change on its own branch. (`scripts/sync_agent_folders.py` only removes files it generated; Spec Kit with this script is `unverified`.)
 
