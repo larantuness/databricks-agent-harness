@@ -1,0 +1,49 @@
+---
+name: databricks-cli-auth
+description: Use when installing the Databricks CLI, logging in to a workspace, switching profiles, or fixing an authentication error in the terminal.
+---
+
+# Databricks CLI authentication
+
+Status: `from-docs` unless a learning file says `verified`. Check `docs/knowledge/learnings/` first.
+
+## Install
+
+Follow the official install instructions for your OS (Homebrew, winget, or the install script). Then check the version: `databricks --version`. Some commands used here (for example `databricks aitools`) need a recent CLI; if a command is unknown, run `databricks --help` and update the CLI.
+
+## Find your workspace host
+
+1. Open your workspace in the browser.
+2. Copy the address bar from `https://` up to the end of the domain. Drop everything after it (path, `?o=...`).
+
+On Free Edition on AWS it looks like `https://dbc-xxxxxxxx-xxxx.cloud.databricks.com`. Other clouds use other domains, so copy what your browser shows. The `dbc-...` part alone is not a host.
+
+When helping a user, ask them to copy the address; do not guess the host. If they give only the `dbc-...` part, ask them to confirm the full domain in the browser.
+
+## Log in with OAuth (preferred over personal access tokens)
+
+Status: `verified` on macOS with Free Edition (2026-11-27, CLI 1.28.0).
+
+```
+databricks auth login --host https://<your-workspace-host> --profile free
+```
+
+A browser opens. Sign in with the same method you use for the workspace. The profile name `free` is only a convention.
+
+## Use the profile
+
+- One command: `databricks <command> --profile free`.
+- Whole shell: `export DATABRICKS_CONFIG_PROFILE=free` (PowerShell: `$env:DATABRICKS_CONFIG_PROFILE="free"`).
+- Agents that run each command in a fresh shell must pass `--profile free` explicitly or set the variable in the tool's settings.
+- Check who you are: `databricks current-user me --profile free`.
+- List profiles: `databricks auth profiles`.
+
+## Typical errors
+
+- Token expired or "invalid access token": run `databricks auth login` again for the same profile. OAuth tokens are short lived.
+- `no such host` or `failed to get OAuth endpoints`: the host is incomplete or mistyped, for example `dbc-xxxxxxxx-xxxx` without the domain. See "Find your workspace host".
+- Wrong workspace: check `--host` and the profile with `databricks auth profiles`.
+- Command not found after install: restart the terminal so PATH updates.
+- Account-level commands fail on Free Edition: expected, Free Edition has no account console.
+
+Never paste tokens into chat, files or the error log.

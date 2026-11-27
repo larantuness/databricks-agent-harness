@@ -1,0 +1,10 @@
+# Minimal bundle. One target only: dev. Fill in the host after lab 01.
+bundle:
+  name: agent_harness_lab
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://REPLACE-WITH-YOUR-WORKSPACE-HOST

@@ -1,0 +1,18 @@
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.pyc
+.databricks/
+.ai-dev-kit/
+output/
+.DS_Store
+
+# Private teaching material (stays on the instructor's machine, never pushed)
+_entrega.zip
+docs/aula/
+apresentacao/
+slides/
+*.pptx
+.claude/settings.local.json

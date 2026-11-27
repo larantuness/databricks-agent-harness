@@ -1,0 +1,43 @@
+---
+name: self-improvement
+description: Use when a command fails, a skill or instruction is wrong or missing, the user corrects you, or a task ends. Defines the error log, the learnings files and the loop that improves this harness.
+---
+
+# Self-improvement
+
+The harness only gets better if every failure leaves a trace. Follow this loop.
+
+## 1. Log every error (immediately)
+
+When a command fails, an instruction is wrong, a skill is missing, or the user corrects you, append one entry to `docs/knowledge/errors/LOG.md` before doing anything else. Newest entry at the bottom. Never edit or delete old entries.
+
+Entry format:
+
+```
+## 2026-11-27 14:05 · databricks-cli-auth · open
+- Symptom: what you saw (exact error text, trimmed)
+- Cause: what actually caused it (write "unknown" if you do not know)
+- Fix: what worked (or "none yet")
+- Prevention: which file should change so this never repeats
+- Status: open | fixed-in-skill | wont-fix
+- Seen: 1
+```
+
+If the same symptom is already in the log, do not add a duplicate. Increase `Seen` by one and add the date.
+
+## 2. Capture learnings
+
+A learning is something true and reusable that is not an error: a limit, a working command, a naming rule. Put it in `docs/knowledge/learnings/<topic>.md` with a status line: `verified` (you ran it), `from-docs`, or `unverified`, plus `Last checked: <date>`.
+
+## 3. Close the loop
+
+- `Seen` reaches 2, or the user asks: stop and fix the cause. Edit the skill, agent or `AGENTS.md`. Show the diff, wait for approval, commit on a branch named `harness/<short-topic>`. Set the log entry to `fixed-in-skill` and link the commit.
+- After editing a source file run `python scripts/sync_agent_folders.py` and `python scripts/check_repo_map.py`.
+- At the end of each task run `/retro` (`prompts/retro.md`).
+
+## 4. Limits
+
+- Do not store secrets, tokens, workspace URLs of other people, or personal data in the log.
+- Do not rewrite instructions silently. The user sees every diff.
+- Do not "fix" an error by weakening a guardrail (dev-only, tests, review).
+- If unsure whether something is verified, write `unverified`.

@@ -1,0 +1,5 @@
+{
+  "chat.useAgentsMdFile": true,
+  "chat.useClaudeMdFile": true,
+  "files.eol": "\n"
+}

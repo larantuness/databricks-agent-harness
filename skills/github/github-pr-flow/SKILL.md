@@ -1,0 +1,17 @@
+---
+name: github-pr-flow
+description: Use when committing, pushing, opening or updating a pull request, or when CI fails on a pull request.
+---
+
+# Branch, commit, pull request
+
+1. Never commit to `main`. Work on a branch.
+2. Before committing run the local checks: `ruff check .` and `pytest` (see `labs/` for setup).
+3. Commit small and often. Message: imperative sentence saying what and why.
+4. Push the branch and open a pull request. Description: what changed, how it was tested, link to the issue.
+5. Wait for CI. If CI fails, read the log, fix the cause, push again. Do not disable a check to get green.
+6. A human reviews and merges. You do not merge your own pull request.
+
+Typical lint failures: unused import, unsorted imports, missing newline at end of file, line too long. `ruff check --fix` solves most of them; review the diff afterwards.
+
+Pushing and opening a pull request are writes: follow `write-contract`.

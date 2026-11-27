@@ -1,0 +1,24 @@
+---
+name: databricks-free-edition
+description: Use when planning or debugging work on Databricks Free Edition, to know its limits (serverless only, one warehouse, restricted internet, no account console) and design around them.
+---
+
+# Databricks Free Edition
+
+Status: `from-docs`. Re-check the official limits page when something surprising happens; limits change.
+
+## Known limits (from the official documentation at time of writing)
+
+- Serverless compute only. No classic clusters.
+- One SQL warehouse, smallest size.
+- Limits on concurrent job tasks and on Apps.
+- One active pipeline per pipeline type.
+- Restricted outbound internet from compute: downloading data from arbitrary sites may fail. Prefer small sample data in the repository or Unity Catalog volumes.
+- No account console and no account-level APIs.
+
+## Working rules
+
+- Keep data small. Prefer generated or sample data.
+- Run one heavy thing at a time. If a job queues or fails with a capacity message, wait and retry; log it if it repeats.
+- Everything you create belongs in your own catalog and schema. Use a clear prefix, for example `<your_name>_agents`.
+- Some tools that work in paid workspaces (CLI features, managed MCP servers, external IDE connections) may or may not work here. Test each one and write the result in `docs/knowledge/learnings/free-edition.md` as `verified` or `unverified`.

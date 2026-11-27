@@ -1,0 +1,1 @@
+Follow `AGENTS.md` in the repository root. It holds the working rules, the dev-only guardrails and the continuous-improvement protocol. Read `REPO_MAP.md` to find skills, agents and prompts. When something fails or is missing, append an entry to `docs/knowledge/errors/LOG.md`.

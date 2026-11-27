@@ -1,0 +1,12 @@
+[tool.ruff]
+line-length = 100
+extend-exclude = [".claude", ".github/skills", ".github/agents", ".github/prompts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/*" = ["E501"]

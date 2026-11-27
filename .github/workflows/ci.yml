@@ -1,0 +1,21 @@
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pytest ruff pandas pyyaml
+      - run: ruff check .
+      - run: pytest
+      - name: Harness checks
+        run: |
+          python scripts/sync_agent_folders.py --check
+          python scripts/check_repo_map.py
+          for d in skills/*/*/; do python scripts/quick_validate.py "$d"; done
